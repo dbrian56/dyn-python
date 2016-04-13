@@ -3,8 +3,8 @@
 Quickstart
 ==========
 
-Eager to get started? This guide will help you get started managing your Dyn
-services using this module.
+Eager to get started? This guide will get you started using your Dyn services
+with this module.
 
 If you have not already, :ref:`Install <install>` the Dyn module before proceeding further.
 
