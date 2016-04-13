@@ -8,16 +8,18 @@ services using this module.
 
 If you have not already, :ref:`Install <install>` the Dyn module before proceeding further.
 
-It is also important to understand that this library handles interacting with
+It is also important to understand that this library works with
 both Traffic Management (TM) and Message Management (MM) services. For both
-TM and MM, you will need to create Session objects to handle API interactions,
+TM and MM, you will need to create Session objects to manage API interactions,
 processing API responses, and creating the various objects described
 in the :ref:`TM <dyn-tm>` and :ref:`MM <dyn-mm>` API documentation sections.
 
-Here are some simple examples to get you started.
+Below are some simple examples of session objects to get you started.
 
 Authentication
 --------------
+Managed DNS
+
 API sessions will need to be created each time you use either of these libraries.
 These session objects internally manage interaction with the API.
 
@@ -25,13 +27,15 @@ To create a TM DynectSession, begin by importing the tm.session module::
 
     >>> from dyn.tm.session import DynectSession
 
-Now create an instance of a DynectSession by using our Dyn
+Then create an instance of a DynectSession by using our Dyn
 login credentials::
 
     >>> my_session = DynectSession(customer, username, password)
 
 Now you have a :class:`DynectSession` object called ``my_session``. You will be
 able to use this to access your available resources.
+
+Message Management
 
 For MM, you can import and create an :class:`MMSession` from the mm.session
 module::
@@ -46,8 +50,8 @@ This object will now grant you access to the features provided by the Email API.
 
 Managing Your TM Accounts
 -------------------------
-The new wrapper allows you easy access to managing all of the elements within
-your account, such as new :class:`Users` objects::
+The new wrapper allows you to manage all of the elements within your account,
+such as new :class:`Users` objects::
 
     >>> from dyn.tm.accounts import User
     >>> jsmith = User('jsmith')
@@ -63,7 +67,7 @@ your account, such as new :class:`Users` objects::
     ['ZoneAdd', 'ZoneDelete', 'Login', 'ZoneGet']
 
 You can also create new :class:`PermissionGroups` that can later be applied to
-:class:`User` objects
+:class:`User` objects to manage users.
 ::
 
     >>> from dyn.tm.accounts import PermissionsGroup
@@ -85,7 +89,7 @@ You can also access your previously created zones::
     >>> my_old_zone = Zone('example.com')
 
 Using these :class:`Zone` objects you can begin to manipulate your zones,
-such as, adding a record::
+such as adding records to them::
 
     >>> a_rec = my_zone.add_record('node', 'A', '127.0.0.1')
     >>> a_rec.ip
@@ -97,7 +101,7 @@ such as, adding a record::
 
 TM Services
 -----------
-Try adding a :class:`DynamicDNS` service to your zone::
+This object adds :class:`DynamicDNS` service to your zone::
 
     >>> ddns = my_zone.add_service(service_type='DDNS', record_type='A',
     ...                            address='127.0.0.1')
